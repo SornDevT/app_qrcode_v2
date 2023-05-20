@@ -83,6 +83,7 @@ class _ScanQRState extends State<ScanQR> {
                 ElevatedButton(
                   onPressed: () async {
                     await controller?.flipCamera();
+                    setState(() {});
                   },
                   child: FutureBuilder(
                       future: controller?.getCameraInfo(),
@@ -103,6 +104,20 @@ class _ScanQRState extends State<ScanQR> {
             child: builResualt(),
           )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          List<Media>? res = await ImagesPicker.pick();
+          if (res != null) {
+            String? str = await Scan.parse(res[0].path);
+            if (str != null) {
+              setState(() {
+                Rbarcode = str;
+              });
+            }
+          }
+        },
+        child: Icon(Icons.image),
       ),
     );
   }
@@ -126,6 +141,7 @@ class _ScanQRState extends State<ScanQR> {
     controller.scannedDataStream.listen((barcode) {
       setState(() {
         this.barcode = barcode;
+        this.Rbarcode = barcode.code;
       });
     });
   }

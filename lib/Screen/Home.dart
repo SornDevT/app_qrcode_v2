@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("App QR Code"),
+        title: Text("App QR Code V2"),
       ),
       body: _tabPages[_selectIndex],
       bottomNavigationBar: BottomNavigationBar(
